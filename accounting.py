@@ -1,14 +1,18 @@
-def accounting(customer_name, amount, paid):
+def print_payment(path):
+  path=open(path)
+  for line in path:
+    order=line.split("|")
+    order_id, customer_name, amount, paid= order
+    amount=float(amount)
+    paid=float(paid)
+
     melon_cost = 1.00
     customer_expected = amount * melon_cost
     
-    if customer_expected != paid:
-        print(f"{customer_name} paid ${paid},",
-          f"expected ${customer_expected}"
-          )
-accounting("Joe", 5,  5.00 )
-accounting("Frank", 6,  6.00 )
-accounting("Sally", 3, 3.00)
-accounting("Sean", 9, 9.50)
-accounting("David", 4, 4.00)
-accounting("Ashley", 3, 2.00)
+    if customer_expected > paid:
+      print(f"{customer_name} paid ${paid}, but expected {customer_expected}--underpaid")
+    else:
+      if customer_expected < paid:
+        print(f"{customer_name} paid ${paid}, but expected {customer_expected}--overpaid")
+
+print_payment("customer-orders.txt")
